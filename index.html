@@ -295,7 +295,7 @@ button.tap-bounce{animation:tapBounce .12s ease-out}
    ・マイナー : 機能の追加・仕様の変更（パッチは0に戻す）
    ・パッチ : バグ修正・見た目の微調整・名称変更など
    履歴: v1 build1(6/8 端末内版) / v2 build53(6/13 Firebase共有) / v3 build117(7/2 日付ベース記録) / v4 build170(7/15 4タブ構成) / v5 build260(10/6 記録単位の同期・PINハッシュ化) */
-var APP_VERSION='5.3.4',APP_BUILD=275;
+var APP_VERSION='5.4.1',APP_BUILD=277;
 (function(){var el=document.getElementById('app-ver');if(el)el.textContent='v'+APP_VERSION+' (build '+APP_BUILD+')';})();
 var SEED_E=[];
 var SEED_M=[];
@@ -1770,10 +1770,10 @@ function paintTabs(){
   var T=[['input','分附']];
   if(adminMode)T.push(['table','成績表']); // 成績表タブは管理者のみ表示
   T.push(['penalty','罰則'],['self','マイページ']);
-  T.splice(1,0,['prac','自主練']);  // 入力する所（分附・自主練）を左に
   var el=document.getElementById('tabs');
   el.innerHTML=T.map(function(kl){
-    return '<button class="t'+(tab===kl[0]?' on':'')+'" data-tab="'+kl[0]+'"><span class="t-lb">'+kl[1]+'</span></button>';
+    var on=tab===kl[0]||(tab==='prac'&&kl[0]==='self');   // 自主練はマイページの中の画面
+    return '<button class="t'+(on?' on':'')+'" data-tab="'+kl[0]+'"><span class="t-lb">'+kl[1]+'</span></button>';
   }).join('');
 }
 /* 画面切替アニメーション
@@ -1784,6 +1784,7 @@ var _conScreen=null;
 function conScreenState(){
   var branch=tab,depth=0;
   if(tab==='input'){depth=Math.max(0,['mo-sess','att','config','input'].indexOf(bunStep));}
+  else if(tab==='prac'){return {tab:'self',branch:'self',depth:1};}   // マイページから奥へ進む画面
   else if(tab==='table'){depth=(typeof tableView!=='undefined'&&tableView==='indiv')?1:0;}
   else if(tab==='penalty'){
     branch='penalty:'+penSubTab;
@@ -5573,10 +5574,15 @@ function tSelf(page){
   }
   if(!selfForm.date)selfForm.date=todayStr();
   migrateSelfSub();
-  var head='<div class="row" style="align-items:center;margin-bottom:12px">'
-    +'<div style="flex:1"><div style="font-size:16px;font-weight:800">'+(isPrac?'自主練':'マイページ')+'</div>'
-    +'<div style="font-size:11px;color:var(--sub)">'+esc(myMb)+' さんとしてログイン中</div></div>'
-    +'<button class="btn bh" style="padding:7px 10px" id="btn-self-logout">ログアウト</button></div>';
+  /* 自主練はマイページ右上のボタンから開く奥の画面。ログアウトはマイページの一番下 */
+  var head=isPrac
+    ?'<div class="row" style="align-items:center;margin-bottom:12px">'
+      +'<button class="btn bh" style="padding:7px 10px" data-tab="self">‹ マイページ</button>'
+      +'<div style="flex:1;font-size:16px;font-weight:800;text-align:center;margin-right:84px">自主練</div></div>'
+    :'<div class="row" style="align-items:center;margin-bottom:12px">'
+      +'<div style="flex:1"><div style="font-size:16px;font-weight:800">マイページ</div>'
+      +'<div style="font-size:11px;color:var(--sub)">'+esc(myMb)+' さんとしてログイン中</div></div>'
+      +'<button class="btn bh" style="padding:10px 16px;font-size:14px;font-weight:700" data-tab="prac">自主練 ›</button></div>';
   /* マイページ＝正規練の成績／分析、自主練タブ＝記録／成績／ランキング。どちらも下は1段だけ */
   var body;
   if(!isPrac){
@@ -5592,7 +5598,9 @@ function tSelf(page){
     }).join('')+'</div>'
       +(selfPracSub==='stat'?selfPracticeView(myMb):selfPracSub==='rank'?selfRankView():selfInputView());
   }
-  return head+(isPrac?'':personProfileCard(myMb))+body;
+  var foot=isPrac?'':'<div style="text-align:center;margin:28px 0 8px">'
+    +'<button class="btn bh" style="padding:7px 14px;font-size:12px" id="btn-self-logout">ログアウト</button></div>';
+  return head+(isPrac?'':personProfileCard(myMb))+body+foot;
 }
 /* 旧サブタブ値（記録/公式/自主練/ランキングの一段構成）からの移行 */
 function migrateSelfSub(){
