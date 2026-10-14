@@ -295,7 +295,7 @@ button.tap-bounce{animation:tapBounce .12s ease-out}
    ・マイナー : 機能の追加・仕様の変更（パッチは0に戻す）
    ・パッチ : バグ修正・見た目の微調整・名称変更など
    履歴: v1 build1(6/8 端末内版) / v2 build53(6/13 Firebase共有) / v3 build117(7/2 日付ベース記録) / v4 build170(7/15 4タブ構成) / v5 build260(10/6 記録単位の同期・PINハッシュ化) */
-var APP_VERSION='5.4.1',APP_BUILD=277;
+var APP_VERSION='5.5.0',APP_BUILD=278;
 (function(){var el=document.getElementById('app-ver');if(el)el.textContent='v'+APP_VERSION+' (build '+APP_BUILD+')';})();
 var SEED_E=[];
 var SEED_M=[];
@@ -2558,8 +2558,18 @@ function bunCellLocked(n,idx){
   var s=(bunData[n]||[])[idx];if(s==null)return false;
   return Date.now()-(_bunEditAt[n+'\u0001'+idx]||0)>=BUN_LOCK_MS;
 }
+/* 自分の的中は自分で入れられない（管理者は除く）。リーグ戦の列は射位なので、その4射を引いた人で判定 */
+var _bunOwnHintAt=0;
+function bunOwnBlocked(n,idx){
+  if(adminMode||!myMb)return false;
+  var who=isLeagueMode(bunMode)?(bunLineup[n]||[])[Math.floor(idx/LG_PER)]:n;
+  if(who!==myMb)return false;
+  if(Date.now()-_bunOwnHintAt>2500){_bunOwnHintAt=Date.now();fl('自分の列は入力できません。記録係に入れてもらってください');}
+  return true;
+}
 function bunCellTap(el,viaClick){
   var n=el.getAttribute('data-bun-name'),idx=parseInt(el.getAttribute('data-bun-idx'),10);
+  if(bunOwnBlocked(n,idx))return;
   if(bunCellLocked(n,idx)){
     if(viaClick){openBunFixMenu(el);return;}   // マウス操作では長押しの代わりにメニューを出す
     if(Date.now()-_bunLockHintAt>2500){_bunLockHintAt=Date.now();fl('入力済みのマスは長押しで修正できます');}
@@ -2570,6 +2580,7 @@ function bunCellTap(el,viaClick){
 function closeBunFixMenu(){var o=document.getElementById('bun-fix-ov');if(o&&o.parentNode)o.parentNode.removeChild(o);}
 function openBunFixMenu(cell){
   var n=cell.getAttribute('data-bun-name'),idx=parseInt(cell.getAttribute('data-bun-idx'),10);
+  if(bunOwnBlocked(n,idx))return;   // 長押しの修正メニューも同じ
   closeBunFixMenu();
   try{if(navigator.vibrate)navigator.vibrate(15);}catch(e){}
   var r=cell.getBoundingClientRect(),W=204,H=96;
@@ -5577,7 +5588,7 @@ function tSelf(page){
   /* 自主練はマイページ右上のボタンから開く奥の画面。ログアウトはマイページの一番下 */
   var head=isPrac
     ?'<div class="row" style="align-items:center;margin-bottom:12px">'
-      +'<button class="btn bh" style="padding:7px 10px" data-tab="self">‹ マイページ</button>'
+      +'<button class="btn bh" style="padding:10px 10px" data-tab="self">‹ マイページ</button>'
       +'<div style="flex:1;font-size:16px;font-weight:800;text-align:center;margin-right:84px">自主練</div></div>'
     :'<div class="row" style="align-items:center;margin-bottom:12px">'
       +'<div style="flex:1"><div style="font-size:16px;font-weight:800">マイページ</div>'
