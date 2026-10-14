@@ -295,7 +295,7 @@ button.tap-bounce{animation:tapBounce .12s ease-out}
    ・マイナー : 機能の追加・仕様の変更（パッチは0に戻す）
    ・パッチ : バグ修正・見た目の微調整・名称変更など
    履歴: v1 build1(6/8 端末内版) / v2 build53(6/13 Firebase共有) / v3 build117(7/2 日付ベース記録) / v4 build170(7/15 4タブ構成) / v5 build260(10/6 記録単位の同期・PINハッシュ化) */
-var APP_VERSION='5.5.0',APP_BUILD=278;
+var APP_VERSION='5.5.1',APP_BUILD=279;
 (function(){var el=document.getElementById('app-ver');if(el)el.textContent='v'+APP_VERSION+' (build '+APP_BUILD+')';})();
 var SEED_E=[];
 var SEED_M=[];
@@ -2560,16 +2560,17 @@ function bunCellLocked(n,idx){
 }
 /* 自分の的中は自分で入れられない（管理者は除く）。リーグ戦の列は射位なので、その4射を引いた人で判定 */
 var _bunOwnHintAt=0;
-function bunOwnBlocked(n,idx){
+function bunOwnBlocked(n,idx,kind){
   if(adminMode||!myMb)return false;
   var who=isLeagueMode(bunMode)?(bunLineup[n]||[])[Math.floor(idx/LG_PER)]:n;
   if(who!==myMb)return false;
+  bunLogBlocked(n,idx,kind);   // 押そうとしたことは変更履歴に残す
   if(Date.now()-_bunOwnHintAt>2500){_bunOwnHintAt=Date.now();fl('自分の列は入力できません。記録係に入れてもらってください');}
   return true;
 }
 function bunCellTap(el,viaClick){
   var n=el.getAttribute('data-bun-name'),idx=parseInt(el.getAttribute('data-bun-idx'),10);
-  if(bunOwnBlocked(n,idx))return;
+  if(bunOwnBlocked(n,idx,'t'))return;
   if(bunCellLocked(n,idx)){
     if(viaClick){openBunFixMenu(el);return;}   // マウス操作では長押しの代わりにメニューを出す
     if(Date.now()-_bunLockHintAt>2500){_bunLockHintAt=Date.now();fl('入力済みのマスは長押しで修正できます');}
@@ -2580,7 +2581,7 @@ function bunCellTap(el,viaClick){
 function closeBunFixMenu(){var o=document.getElementById('bun-fix-ov');if(o&&o.parentNode)o.parentNode.removeChild(o);}
 function openBunFixMenu(cell){
   var n=cell.getAttribute('data-bun-name'),idx=parseInt(cell.getAttribute('data-bun-idx'),10);
-  if(bunOwnBlocked(n,idx))return;   // 長押しの修正メニューも同じ
+  if(bunOwnBlocked(n,idx,'l'))return;   // 長押しの修正メニューも同じ
   closeBunFixMenu();
   try{if(navigator.vibrate)navigator.vibrate(15);}catch(e){}
   var r=cell.getBoundingClientRect(),W=204,H=96;
@@ -2620,6 +2621,15 @@ function bunLogPush(name,idx,prev,v){
   var mb=isLeagueMode(bunMode)?((bunLineup[name]||[])[Math.floor(idx/LG_PER)]||name):name;
   var k=Date.now().toString(36)+'-'+('000'+(_logSeq++%1296).toString(36)).slice(-2)+'-'+CLIENT_ID.slice(-4);
   _logQ.push([k,[Date.now(),who,mb,idx+1,_lv(prev)+'>'+_lv(v)].join('|')]);
+  _logSchedule(1500);
+}
+/* 自分の列を押して止められた操作。変更欄は「!＋その時のマスの値＋t(タップ)/l(長押し)」 */
+function bunLogBlocked(name,idx,kind){
+  var who=(myMb||'')+(adminMode?'[管理者]':shonaiMode?'[渉内]':'');
+  var mb=isLeagueMode(bunMode)?((bunLineup[name]||[])[Math.floor(idx/LG_PER)]||name):name;
+  var cur=(bunData[name]||[])[idx];
+  var k=Date.now().toString(36)+'-'+('000'+(_logSeq++%1296).toString(36)).slice(-2)+'-'+CLIENT_ID.slice(-4);
+  _logQ.push([k,[Date.now(),who,mb,idx+1,'!'+_lv(cur==null?null:cur)+(kind||'t')].join('|')]);
   _logSchedule(1500);
 }
 function _logSchedule(ms){if(_logTimer)clearTimeout(_logTimer);_logTimer=setTimeout(_logFlush,ms);}
@@ -2672,6 +2682,11 @@ function blgLoad(sid){
 function blgMerge(rows){
   var out=[],last={};
   rows.forEach(function(r){
+    if(r.c.charAt(0)==='!'){   // 止められた操作：3秒以内に同じマスを続けて押した分は回数にまとめる
+      var bk='!'+r.u+'\u0001'+r.m+'\u0001'+r.i,bp=last[bk];
+      if(bp&&r.t-bp.t<=BUN_LOCK_MS){bp.n++;bp.t=r.t;return;}
+      var bq={t:r.t,u:r.u,m:r.m,i:r.i,c:r.c,n:1};out.push(bq);last[bk]=bq;return;
+    }
     var k=r.u+'\u0001'+r.m+'\u0001'+r.i,p=last[k];
     if(p&&r.t-p.t<=BUN_LOCK_MS){
       var a=p.c.split('>'),b=r.c.split('>');
@@ -2686,7 +2701,7 @@ function blgMerge(rows){
 }
 function tBunLogCard(){
   var o='<div class="card mb10"><p style="margin:0 0 6px;font-size:14px;font-weight:700">分附の変更履歴</p>'
-    +'<p style="margin:0 0 8px;font-size:11.5px;color:var(--sub)">入力中の分附で、どのマスを・いつ・誰が変えたかを確認できます。赤は本人が自分のマスを変えた操作、黄色は入力済みのマスを書き換えた操作です。同じ人が3秒以内に続けて押した分（✗を入れるときの2回タップなど）は1件にまとめています。</p>';
+    +'<p style="margin:0 0 8px;font-size:11.5px;color:var(--sub)">入力中の分附で、どのマスを・いつ・誰が変えたかを確認できます。赤は本人が自分のマスを変えた操作、黄色は入力済みのマスを書き換えた操作です。同じ人が3秒以内に続けて押した分（✗を入れるときの2回タップなど）は1件にまとめています。「拒否」は本人が自分の列を押して止められた操作で、括弧内はそのときのマスの値です。</p>';
   if(blgSids===null&&!blgErr)return o+'<button id="btn-blg-load" class="btn bh" style="margin-top:0;padding:8px 14px;font-size:12px">履歴を読み込む</button></div>';
   if(blgErr)o+='<div style="font-size:12px;color:var(--bad);margin-bottom:8px">'+esc(blgErr)+'</div>';
   if(blgSids&&!blgSids.length&&!blgErr)o+='<div class="emp" style="padding:8px 0">履歴はまだありません</div>';
@@ -2705,8 +2720,13 @@ function tBunLogCard(){
       var sym={o:'○',x:'✗','-':'空'};
       o+='<div style="max-height:360px;overflow:auto"><table class="blg-tbl"><thead><tr><th>時刻</th><th>入力者</th><th>部員</th><th>射</th><th>変更</th></tr></thead><tbody>'
         +rows.map(function(r){
-          var c=r.c.split('>'),fix=c[0]!=='-';
           var d=new Date(r.t),tm=('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)+':'+('0'+d.getSeconds()).slice(-2);
+          var chg;
+          if(r.c.charAt(0)==='!'){   // 自分の列を押して止められた操作
+            chg='<b>拒否</b> '+(r.c.charAt(2)==='l'?'長押し':'タップ')+(r.n>1?'×'+r.n:'')+'（'+(sym[r.c.charAt(1)]||'空')+'）';
+            return '<tr class="blg-self"><td>'+tm+'</td><td>'+esc(r.u||'?')+'</td><td>'+esc(r.m)+'</td><td>'+esc(r.i)+'</td><td>'+chg+'</td></tr>';
+          }
+          var c=r.c.split('>'),fix=c[0]!=='-';
           return '<tr'+(_self(r)?' class="blg-self"':fix?' class="blg-fix"':'')+'><td>'+tm+'</td><td>'+esc(r.u||'?')+'</td><td>'+esc(r.m)+'</td><td>'+esc(r.i)+'</td><td>'+(sym[c[0]]||'')+'→'+(sym[c[1]]||'')+'</td></tr>';
         }).join('')+'</tbody></table></div>'
         +(rows.length?'':'<div class="emp" style="padding:8px 0">該当なし</div>');
