@@ -295,7 +295,7 @@ button.tap-bounce{animation:tapBounce .12s ease-out}
    ・マイナー : 機能の追加・仕様の変更（パッチは0に戻す）
    ・パッチ : バグ修正・見た目の微調整・名称変更など
    履歴: v1 build1(6/8 端末内版) / v2 build53(6/13 Firebase共有) / v3 build117(7/2 日付ベース記録) / v4 build170(7/15 4タブ構成) / v5 build260(10/6 記録単位の同期・PINハッシュ化) */
-var APP_VERSION='5.5.1',APP_BUILD=279;
+var APP_VERSION='5.5.2',APP_BUILD=280;
 (function(){var el=document.getElementById('app-ver');if(el)el.textContent='v'+APP_VERSION+' (build '+APP_BUILD+')';})();
 var SEED_E=[];
 var SEED_M=[];
@@ -2559,13 +2559,21 @@ function bunCellLocked(n,idx){
   return Date.now()-(_bunEditAt[n+'\u0001'+idx]||0)>=BUN_LOCK_MS;
 }
 /* 自分の的中は自分で入れられない（管理者は除く）。リーグ戦の列は射位なので、その4射を引いた人で判定 */
-var _bunOwnHintAt=0;
+function showOwnBlockedPopup(){
+  if(document.getElementById('bun-own-ov'))return;
+  var ov=document.createElement('div');ov.id='bun-own-ov';ov.className='modal-ov';ov.style.zIndex=9500;
+  ov.innerHTML='<div class="modal-bx"><div style="font-size:17px;font-weight:800;margin-bottom:8px">自分の列は入力できません</div><div style="font-size:13px;color:var(--sub);margin-bottom:16px">記録係に入れてもらってください。</div><button id="bun-own-ok" class="btn prim" style="width:100%;margin-top:0;padding:11px">OK</button></div>';
+  var at=Date.now();
+  function close(){if(ov.parentNode)ov.parentNode.removeChild(ov);}
+  ov.addEventListener('click',function(e){if(Date.now()-at<350)return;if(e.target===ov||(e.target.closest&&e.target.closest('#bun-own-ok')))close();});
+  document.body.appendChild(ov);
+}
 function bunOwnBlocked(n,idx,kind){
   if(adminMode||!myMb)return false;
   var who=isLeagueMode(bunMode)?(bunLineup[n]||[])[Math.floor(idx/LG_PER)]:n;
   if(who!==myMb)return false;
   bunLogBlocked(n,idx,kind);   // 押そうとしたことは変更履歴に残す
-  if(Date.now()-_bunOwnHintAt>2500){_bunOwnHintAt=Date.now();fl('自分の列は入力できません。記録係に入れてもらってください');}
+  showOwnBlockedPopup();
   return true;
 }
 function bunCellTap(el,viaClick){
