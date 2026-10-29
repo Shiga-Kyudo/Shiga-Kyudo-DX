@@ -36,7 +36,6 @@ h1{margin:0;font-size:17px;font-weight:700}
 .rdl label.on input[type=radio]{accent-color:#fff}
 .rdl .rd-tag{margin-left:auto;font-size:10.5px;font-weight:700;opacity:.65}
 .rdl label.soon{opacity:.45;cursor:default}
-.news-badge{position:absolute;top:3px;right:4px;min-width:15px;height:15px;padding:0 3px;background:var(--bad);color:#fff;border-radius:8px;font-size:9px;font-weight:800;line-height:15px;text-align:center;box-sizing:border-box}
 .news-imp-tag{display:inline-block;font-size:10px;font-weight:800;color:#fff;background:var(--bad);border-radius:5px;padding:1px 7px;margin-right:6px;vertical-align:middle}
 .news-banner{display:flex;align-items:flex-start;gap:8px;background:var(--acc-bg);border:1px solid var(--acc-ln);border-left:4px solid var(--acc);border-radius:10px;padding:10px 12px;margin-bottom:10px}
 .news-banner-x{border:none;background:none;color:var(--acc);cursor:pointer;font-size:17px;line-height:1;padding:0 2px;flex:none}
@@ -50,7 +49,6 @@ h1{margin:0;font-size:17px;font-weight:700}
 .card{background:var(--sf);border:1px solid var(--ln);border-radius:13px;padding:16px 18px;overflow:hidden}
 .mb10{margin-bottom:10px}
 label{display:block;font-size:12px;color:var(--sub);margin:11px 0 4px;font-weight:600}
-.opt{color:var(--faint);font-weight:400}
 input,select{width:100%;padding:9px 11px;font-size:14px;border:1px solid var(--ln2);border-radius:9px;background:var(--sf);color:var(--ink);font-family:inherit;outline:none;appearance:auto;box-sizing:border-box;-webkit-box-sizing:border-box}
 input:focus,select:focus{border-color:var(--acc)}
 /* iOS Safari: date入力がネイティブの最小幅で枠外へはみ出すのを抑える */
@@ -85,8 +83,6 @@ tbody tr:nth-child(even){background:var(--sec)}
 .frow{display:flex;gap:7px;margin-bottom:10px}
 .frow select{padding:7px 9px;font-size:12.5px}
 .yb{font-size:10px;color:var(--faint);margin-left:5px;font-weight:400}
-.tag-m{color:var(--info)}
-.tag-f{color:var(--bad)}
 .mtbl{width:100%;border-collapse:collapse;font-size:13px}
 .mtbl th{padding:7px 6px;font-size:11px;font-weight:700;color:var(--sub);background:var(--sec);text-align:center;border-bottom:1px solid var(--ln)}
 .mtbl th.tl{text-align:left}
@@ -97,7 +93,6 @@ tbody tr:nth-child(even){background:var(--sec)}
 .mchips{display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:2px;margin-bottom:10px}
 .mchip{padding:6px 12px;border:1px solid var(--ln2);border-radius:16px;background:var(--sf);font-size:12.5px;font-weight:600;color:var(--sub);white-space:nowrap;cursor:pointer;font-family:inherit;flex:none}
 .mchip.on{background:var(--acc);color:#fff;border-color:var(--acc)}
-.wkchks{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
 .wkchk{display:flex;align-items:center;gap:9px;width:100%;padding:9px 11px;border-radius:6px;background:transparent;font-size:13px;font-weight:600;color:var(--ink);cursor:pointer}
 .wkchk.on{background:var(--acc-bg);color:var(--acc)}
 .wkchk input{margin:0;accent-color:var(--acc);width:16px;height:16px;flex:none}
@@ -125,7 +120,6 @@ tbody tr:nth-child(even){background:var(--sec)}
 [data-member-row].drop-over td{background:var(--acc-bg);border-top-color:var(--acc);}
 [data-member-row].drop-over:first-child td{border-top:2px solid var(--acc);}
 .dh{cursor:grab;display:inline-block;padding:2px 6px;touch-action:none;user-select:none}
-.bkup-badge{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;background:var(--bad);color:#fff;border-radius:50%;font-size:10px;font-weight:800;margin-left:4px;vertical-align:middle}
 .bkup-banner{background:#fdf0f0;border:1px solid #f0c0c0;border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:12px;color:var(--bad);font-weight:600;line-height:1.5}
 /* achievement badges */
 .achv{display:inline-flex;align-items:center;padding:4px 9px;border-radius:20px;font-size:11px;font-weight:700;margin:2px}
@@ -162,10 +156,6 @@ tbody tr:nth-child(even){background:var(--sec)}
 .bun-fix-btns button{flex:1;padding:12px 0;font-size:20px;font-weight:800;border:1px solid var(--ln);border-radius:8px;background:var(--sec);color:var(--ink)}
 .bun-fix-btns button[data-v="o"]{color:var(--good)}
 .bun-fix-btns button[data-v="x"]{color:var(--bad)}
-.blg-tbl{width:100%;border-collapse:collapse;font-size:11.5px}
-.blg-tbl td,.blg-tbl th{padding:4px 3px;border-bottom:1px solid var(--ln);text-align:left;white-space:nowrap}
-.blg-fix td{background:#fdf6e3}
-.blg-self td{background:#fbe9e9;color:var(--bad);font-weight:700}
 .bun-sep-row td{height:5px;background:var(--sec);border-top:2px dashed var(--ln2);border-bottom:2px dashed var(--ln2);padding:0}
 .bun-name-row td,.bun-name-row th{position:sticky;bottom:0;z-index:3;border-top:2px solid var(--ink);background:var(--sec)}
 .bun-name-cell{text-align:center;vertical-align:top;width:50px;min-width:50px;word-break:keep-all;position:relative;padding-bottom:24px}
@@ -179,8 +169,7 @@ tbody tr:nth-child(even){background:var(--sec)}
 .lg-ro .bun-tc{width:auto;min-width:0;height:var(--lgh,17px);max-height:none;line-height:var(--lgh,17px);font-size:calc(var(--lgh,17px)*0.55);cursor:default;position:relative;overflow:visible}
 .lg-ro .bun-tc.lg-has-in{vertical-align:top;line-height:calc(var(--lgh,17px) - 10px)}
 .lg-ro .lg-in{position:absolute;left:0;right:0;bottom:0;height:9px;line-height:9px;font-size:7px;font-weight:700;background:var(--sec);color:var(--ink);border-top:1px solid var(--ln2);white-space:nowrap;text-align:center;letter-spacing:-.02em;overflow:hidden;pointer-events:none}
-.lg-ro .bun-sep-row td,.lg-ro .lg-sep{height:3px;padding:0;background:var(--sec);border-top:1.5px dashed var(--ln2);border-bottom:1.5px dashed var(--ln2)}
-.lg-ro .lg-chg{background:var(--acc)!important;color:#fff;font-size:9.5px;font-weight:800;line-height:1.1;padding:2px 0!important;text-align:center;border-top:2px solid var(--acc)!important;border-bottom:2px solid var(--acc)!important}
+.lg-ro .bun-sep-row td{height:3px;padding:0;background:var(--sec);border-top:1.5px dashed var(--ln2);border-bottom:1.5px dashed var(--ln2)}
 .lg-ro .bun-total-row td{width:auto;min-width:0;padding:4px 0;font-size:12px}
 .lg-ro .bun-name-cell{width:auto;min-width:0;padding-bottom:4px}
 .lg-ro .lg-vn{display:inline-block;font-size:11px;font-weight:700;line-height:1.15;padding:4px 0}
@@ -295,10 +284,8 @@ button.tap-bounce{animation:tapBounce .12s ease-out}
    ・マイナー : 機能の追加・仕様の変更（パッチは0に戻す）
    ・パッチ : バグ修正・見た目の微調整・名称変更など
    履歴: v1 build1(6/8 端末内版) / v2 build53(6/13 Firebase共有) / v3 build117(7/2 日付ベース記録) / v4 build170(7/15 4タブ構成) / v5 build260(10/6 記録単位の同期・PINハッシュ化) */
-var APP_VERSION='5.5.4',APP_BUILD=282;
+var APP_VERSION='5.6.0',APP_BUILD=283;
 (function(){var el=document.getElementById('app-ver');if(el)el.textContent='v'+APP_VERSION+' (build '+APP_BUILD+')';})();
-var SEED_E=[];
-var SEED_M=[];
 var BADGE_SVGS={
   "firstHit":'<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAMAAAD04JH5AAAA/1BMVEUAAAABAAABAAACAQACAQABAAABAAABAAAXFwAqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABScqvmAAAAQHRSTlMA/NAtb1KujwsGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA39+/1gAAA3JJREFUeNrtWu2S2zAIjPgQ7fu/cGPHlgHJurRG9kxH/LuLo0VmWSHI6zVt2rRp06ZNmzZt2rRpIw2fxk/4MH6ih/FTfhg/wcP46TkSbPiPkWDHf4oEBf/tAeGj+CsT73bC4d9Oxv8fnykD7NEVH97B+Ei5Wh6E78LnnNoGgucOhOEzpI7lDQdG4Tt4WM38S9bnZBC+aG3jsiqyHF7AwgUago8FJXP94eGDeBIE4ZddCfbjs5x9A/DF8ezUBXIkjMUH/umxsfg/H+y44QMiLbSIjb+tbJCZ3sYeA44yMCz9a3ydebbegAFl6AdGhZ/gTAMLPkkcfnb7b8vxx4WCbxyOIIA4f2pji59SaACg1sOlDnjTUJT+7PjofA7IQLR8tHq4nNBk+CdxGoCGAGgOPeUCO/5D2H1AdAA2fGhuzeQfh70Ck4HQ0UOX/xDEAtIvgL7A34Xx8wqCNIB0APr4VD4HJ15XImAEwJTH+1Gg8x/V67ocA1Z7RifImx5r/lePQ0gOUCMfiiCZ/DPch4g8AL8gO0Gy+mMoIxG9CbVp1AzANr6JAQeQANV6hlS58f49aTFADPUmREVAJWRLf7B6fZdkiNSm0fPR6492E65LkXZALwf1+c/9b1xxgE8c2D7f9IducQCcA3zoHynW0D0hwLVR4kBpsAOoCCkm9bBWnwAHdBpmFQ7Wx8JHE37VTwWkodYSo6xHXci2aFfvCaMcALVr8LXpXiGffeFqWajDaKo8afdARMWMIg6j7GMtr5YH3Kogc0RJpE8gV+geF7SjZ2FKhpCi0BDJ1/qclyaZuqGYOwTH3AygSj764WFolLNXa7JsqgDu36LNiX39ZmLWwdTx4Hc2VbtE3c2yXog6Q6hcC0JIi4Bb6V/36sgJQo4bGBpmlfS33cqSkrZojumROO4XAYLtUqQ7xdj2OqRFxFXLdsUwf+Dru3T5tybZ0Rw/aRLRaVcpJgjw6rbJFC+r54PaRHpFN7cB0zEaMCSDRmeGZT0KqpkZDRlYQ/qWVpKCCWAv4/Tlc9H4x8qAX3TVB+AfUeiMTEoLe9APFqQzs1r6RVAVaNHG7UHtyw5z88AhudHAJf9oGZq807Gph2NeQndyO4h9zoXcgb/nJwoo7YnJnT/WeZMOTn89cJsTuE7tGnO7adOmTZs2bdq0adOmTft7+wMREBE7g6UbsAAAAABJRU5ErkJggg==" alt="" style="width:100%;height:100%;display:block;object-fit:contain">',
   "firstBlue":'<img src="data:image/png;base64,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" alt="" style="width:100%;height:100%;display:block;object-fit:contain">',
@@ -428,7 +415,6 @@ function _normList(v){ // レコード列：nullは除去し詰める
   return Object.keys(v).sort(function(a,b){return a-b;})
     .map(function(k){return v[k];}).filter(function(x){return x!=null;});
 }
-function _normObj(v){return (v&&typeof v==='object'&&!Array.isArray(v))?v:(v==null?{}:v);}
 function _normCol(v){ // 分附の列：添字を保持（null=未入力を保つ）
   if(v==null)return [];
   if(Array.isArray(v))return v.slice();
@@ -436,7 +422,6 @@ function _normCol(v){ // 分附の列：添字を保持（null=未入力を保�
   for(var i=0;i<out.length;i++)if(out[i]===undefined)out[i]=null;
   return out;
 }
-function _padCol(arr){var n=bunShotCount();arr=arr||[];while(arr.length<n)arr.push(null);return arr;}
 
 /* ---- 同期の単位 ----
    rec  : レコード配列。DB上は {キー:レコード} で持ち、1件ずつ書き込む
@@ -1168,7 +1153,6 @@ function bkupLabel(){
   if(d<7)return{text:d+'日前にバックアップ済み',color:'var(--warn)',warn:false};
   return{text:d+'日前（要バックアップ）',color:'var(--bad)',warn:true};
 }
-var CURM=jstNow().toISOString().slice(0,7);
 var KS='kyudo_s2',KM='kyudo_m2',KMeta='kyudo_meta_v1',KA='kyudo_att_v1';
 var S=[],M=[],Meta={},A={};
 var tab='input',mo='all',tMode='monthly',sesKey='',histMb='all';
@@ -1186,7 +1170,7 @@ var SP=[],KSP='kyudo_sp_v1';
 var Pins={},KPINS='kyudo_pins_v1';
 var myMb='',KME='kyudo_me_v1';
 var anaPeriod='3m',anaGran='week',anaFrom='',anaTo='',anaMatchGrp=null,indivOffMode='month';
-var selfSub='official',selfPracSub='input',selfOffSub='official',selfForm={date:'',sh:'20',hi:''},selfMarks=[];
+var selfPracSub='input',selfOffSub='official',selfForm={date:'',sh:'20',hi:''},selfMarks=[];
 var selfMoKey=null;
 var selfLoginName='',selfSetMode=false;
 /* ===== §06 PIN（ハッシュ化・照合・連続失敗ロック） ===== */
@@ -1264,7 +1248,6 @@ var BUN_MODES=[
 ];
 function bunModeDef(m){for(var i=0;i<BUN_MODES.length;i++){if(BUN_MODES[i].key===m)return BUN_MODES[i];}return null;}
 function bunModeLabel(m){var d=bunModeDef(m);return d?d.label:(m?m:'正規練');}
-function isMatchMode(m){var d=bunModeDef(m);return !!d&&d.kind==='match';}
 /* 射位×立目で記録する試合かどうか。名前はリーグ戦由来だが新人戦も同じ仕組みで扱う */
 function isLeagueMode(m){return m==='league_m'||m==='league_f'||m==='shinjin';}
 
@@ -1606,32 +1589,6 @@ function getMo(){
 function fm(m){var p=m.split('-');return p[0]+'年'+parseInt(p[1],10)+'月';}
 function fsk(k){return wkLbl(k);}
 // iOSのtype="month"未サポート対応：年月を2つのselectで表示
-function moSelect(id,val){
-  var now=new Date();
-  var curY=now.getFullYear();
-  var curM=now.getMonth()+1;
-  var selY=val?parseInt(val.split('-')[0],10):0;
-  var selM=val?parseInt(val.split('-')[1],10):0;
-  var yOpts='<option value="">年</option>';
-  for(var y=curY-2;y<=curY+1;y++){
-    yOpts+='<option value="'+y+'"'+(selY===y?' selected':'')+'>'+y+'年</option>';
-  }
-  var mOpts='<option value="">月</option>';
-  for(var m=1;m<=12;m++){
-    var mv=('0'+m).slice(-2);
-    mOpts+='<option value="'+mv+'"'+(selM===m?' selected':'')+'>'+m+'月</option>';
-  }
-  return '<div class="row" style="gap:8px" id="'+id+'-wrap">'
-    +'<select id="'+id+'-y" style="flex:1">'+yOpts+'</select>'
-    +'<select id="'+id+'-m" style="flex:1">'+mOpts+'</select>'
-    +'</div>';
-}
-function moSelectVal(id){
-  var y=document.getElementById(id+'-y');
-  var m=document.getElementById(id+'-m');
-  if(!y||!m||!y.value||!m.value)return '';
-  return y.value+'-'+m.value;
-}
 function getSessKeys(){
   var seen={};
   S.forEach(function(e){var k=recWk(e);if(k)seen[k]=1;});
@@ -1642,12 +1599,6 @@ function yb(name){
   if(m.year)parts.push(m.year+'年');
   if(m.gender)parts.push('<span class="tag-'+(m.gender==='男'?'m':'f')+'">'+m.gender+'</span>');
   return parts.length?'<span class="yb">'+parts.join('・')+'</span>':'';
-}
-function memberTag(name){
-  var m=Meta[name]||{};var parts=[];
-  if(m.year)parts.push(m.year+'年');
-  if(m.gender)parts.push(m.gender);
-  return parts.length?' ('+parts.join('・')+')':'';
 }
 function activeMbs(){
   if(fYear==='all'&&fGender==='all')return null;
@@ -1698,32 +1649,6 @@ function getStats(d){
   return assignRanks(sorted);
 }
 /* 月選択（'all' / 単月文字列 / 複数月配列 を許容） */
-function moList(){return Array.isArray(mo)?mo:(mo==='all'?[]:[mo]);}
-function moIsAll(){return moList().length===0;}
-function moMatch(e){return moIsAll()||moList().indexOf(e.d)>=0;}
-function moLabel(){
-  if(moIsAll())return '通算';
-  var list=moList().slice().sort();
-  if(list.length===1)return fm(list[0]);
-  var ys={};list.forEach(function(m){ys[m.split('-')[0]]=1;});
-  if(Object.keys(ys).length===1)return list[0].split('-')[0]+'年 '+list.map(function(m){return parseInt(m.split('-')[1],10)+'月';}).join('・');
-  return list.map(function(m){return fm(m);}).join('・');
-}
-function toggleMo(m){
-  var list=moList().slice();var i=list.indexOf(m);
-  if(i>=0)list.splice(i,1);else list.push(m);
-  mo=list.length?list:'all';rankExpandName='';paint();
-}
-function setMoAll(){mo='all';rankExpandName='';paint();}
-function getSessStats(key){
-  var active=activeMbs();var mp={};
-  S.filter(function(e){return recWk(e)===key&&(!active||active.has(e.mb));}).forEach(function(e){
-    if(!mp[e.mb])mp[e.mb]={name:e.mb,sh:0,hi:0};
-    mp[e.mb].sh+=e.sh;mp[e.mb].hi+=e.hi;
-  });
-  var sorted=Object.values(mp).sort(function(a,b){return(b.sh?b.hi/b.sh:0)-(a.sh?a.hi/a.sh:0);});
-  return assignRanks(sorted);
-}
 /* 週別：複数週を合算 */
 function sessMatch(e,keys){return keys.indexOf(recWk(e))>=0;}
 function getSessStatsMulti(keys){
@@ -1752,12 +1677,6 @@ function setMeta(name,key,val){
   svM();paint();
 }
 function attKey(){return wkOf(bunDate);}
-function presentMembers(){
-  var key=attKey();
-  var sorted=membersSorted();
-  if(!A[key])return sorted; // 出欠未登録=全員表示
-  return sorted.filter(function(n){return A[key].indexOf(n)>=0;});
-}
 /* ===== §10 画面の描画（タブ切替・paint） ===== */
 function sw(t){
   if(!adminMode&&!shonaiMode&&t!=='input'&&t!=='table'&&t!=='penalty'&&t!=='self'&&t!=='prac')return;
@@ -1817,7 +1736,7 @@ function tGate(){
   return selfLoginCard('ログイン','自分の名前を選び、4桁のPINでログインしてください。初めての人はそのままPINを設定してください。');
 }
 /* paint()で作り直しても、表・チップ列・リストの横/縦スクロール位置を保つ */
-var _SCROLL_SEL=['.bun-sheet-wrap','.lg-sheet-wrap','.mchips','.wk-dd-panel','.blg-wrap'];
+var _SCROLL_SEL=['.bun-sheet-wrap','.lg-sheet-wrap','.mchips','.wk-dd-panel'];
 function _saveHScrolls(root){
   var out=[];
   _SCROLL_SEL.forEach(function(sel){
@@ -2076,7 +1995,6 @@ var CLICK_ID={
   'btn-indiv-official':function(){indivView='official';paint();},
   'btn-indiv-analysis':function(){indivView='analysis';paint();},
   'btn-self-login':function(){doSelfLogin();},
-  'btn-blg-load':function(){blgLoadList();},
   'btn-st-mb-toggle':function(){stMbOpen=!stMbOpen;if(!stMbOpen)settingsReorderMode=false;paint();},
   'btn-self-logout':function(){selfLogout();},
   'btn-self-save':function(){doSaveSelf();},
@@ -2138,8 +2056,6 @@ var CHANGE_ID={
   'sel-indiv':function(el){indivMb=el.value;indivView='official';indivMoExpand='';indivWkExpand='';indivWkLimit=12;paint();},
   'sel-hmb':function(el){histMb=el.value;histLimit=HIST_PAGE;mergeSel=[];mergeConfirm=false;paint();},
   'self-name':function(el){selfLoginName=el.value;paint();},
-  'blg-onlyfix':function(el){blgOnlyFix=!!el.checked;paint();},
-  'blg-onlyself':function(el){blgOnlySelf=!!el.checked;paint();},
   'job-self-mb':function(el){jobSelfMb=el.value;paint();},
   'job-date':function(el){jobForm.date=el.value;},
   'pen-mb':function(el){penForm.mb=el.value;paint();},
@@ -2189,7 +2105,6 @@ var KEY_ID={
 };
 /* [属性名, ハンドラ(el,ev)]。data-pen-del は data-pen-mb より前（内側優先） */
 var CLICK_ATTR=[
-  ['data-blg-sid',function(el){blgLoad(el.getAttribute('data-blg-sid'));}],
   ['data-tab',function(el){sw(el.getAttribute('data-tab'));}],
   ['data-bun-idx',function(el){
     // touchendで処理済みの直後に合成clickが来ることがあるので二重反転を防ぐ
@@ -2243,7 +2158,6 @@ var CLICK_ATTR=[
   ['data-merge-cancel',function(){mergeConfirm=false;paint();}],
   ['data-merge-do',function(){if(!canEditHistory())return;doMerge();}],
   ['data-self-reset',function(el){selfResetPin(el.getAttribute('data-self-reset'));}],
-  ['data-self-sub',function(el){selfSub=el.getAttribute('data-self-sub');paint();}],
   ['data-self-prac',function(el){selfPracSub=el.getAttribute('data-self-prac');paint();}],
   ['data-self-off',function(el){selfOffSub=el.getAttribute('data-self-off');paint();}],
   ['data-ana-period',function(el){
@@ -2358,25 +2272,6 @@ function initDelegation(){
 function bindDynamic(){initDragDrop();initBunDragDrop();}
 
 /* ===== §12 分附入力・出欠 ===== */
-function memberOpts(sel){
-  var present=presentMembers();
-  var key=attKey();
-  var hasAtt=!!A[key];
-  var out='<option value="">-- 部員を選択 --'+(hasAtt?' (出席'+present.length+'名)':'')+'</option>';
-  present.forEach(function(name){
-    var mt=Meta[name]||{};
-    var prefix=mt.num?mt.num+'. ':'';
-    out+='<option value="'+esc(name)+'"'+(name===sel?' selected':'')+'>'+prefix+esc(name)+memberTag(name)+'</option>';
-  });
-  return out;
-}
-function selfLpUpdate(){
-  var shEl=document.getElementById('sf-sh'),hiEl=document.getElementById('sf-hi');
-  var sv=parseFloat(shEl&&shEl.value)||0,hv=parseFloat(hiEl&&hiEl.value);
-  var b=document.getElementById('sf-pre'),v=document.getElementById('sf-pv');if(!b)return;
-  if(sv>0&&!isNaN(hv)&&hv>=0&&hv<=sv){var r=hv/sv;b.style.display='flex';v.textContent=(r*100).toFixed(1)+'%';v.style.color=rc(r);}
-  else b.style.display='none';
-}
 /* ---- 出欠（分附タブ内） ---- */
 function attSection(){
   var key=attKey();
@@ -2592,7 +2487,6 @@ function bunOwnBlocked(n,idx,kind){
   if(adminMode||!myMb)return false;
   var who=isLeagueMode(bunMode)?(bunLineup[n]||[])[Math.floor(idx/LG_PER)]:n;
   if(who!==myMb)return false;
-  bunLogBlocked(n,idx,kind);   // 押そうとしたことは変更履歴に残す
   showOwnBlockedPopup();
   return true;
 }
@@ -2638,143 +2532,17 @@ function openBunFixMenu(cell){
 /* 表・ページのスクロールを記録（慣性スクロールを止めるタップを入力にしないため） */
 document.addEventListener('scroll',function(){_bunScrollAt=Date.now();},{passive:true,capture:true});
 
-/* ===== 分附：変更履歴（どのマスを・いつ・誰が変えたか） =====
-   本体データ（/kyudo）とは別の /bunLog に保存するので、普段の読み込みや同期には含まれない。
-   1件は「時刻|入力者|部員|何射目|前>後」の短い文字列。分附1回で数十KB程度 */
-var LOG_DB='https://shiga-kyudo-dx-default-rtdb.asia-southeast1.firebasedatabase.app/bunLog';
-var _logQ=[],_logTimer=null,_logSeq=0,_logBusy=false;
-function _lv(v){return v===true?'o':v===false?'x':'-';}
-function bunLogPush(name,idx,prev,v){
-  var who=(myMb||'')+(adminMode?'[管理者]':shonaiMode?'[渉内]':'');
-  var mb=isLeagueMode(bunMode)?((bunLineup[name]||[])[Math.floor(idx/LG_PER)]||name):name;
-  var k=Date.now().toString(36)+'-'+('000'+(_logSeq++%1296).toString(36)).slice(-2)+'-'+CLIENT_ID.slice(-4);
-  _logQ.push([k,[Date.now(),who,mb,idx+1,_lv(prev)+'>'+_lv(v)].join('|')]);
-  _logSchedule(1500);
-}
-/* 自分の列を押して止められた操作。変更欄は「!＋その時のマスの値＋t(タップ)/l(長押し)」 */
-function bunLogBlocked(name,idx,kind){
-  var who=(myMb||'')+(adminMode?'[管理者]':shonaiMode?'[渉内]':'');
-  var mb=isLeagueMode(bunMode)?((bunLineup[name]||[])[Math.floor(idx/LG_PER)]||name):name;
-  var cur=(bunData[name]||[])[idx];
-  var k=Date.now().toString(36)+'-'+('000'+(_logSeq++%1296).toString(36)).slice(-2)+'-'+CLIENT_ID.slice(-4);
-  _logQ.push([k,[Date.now(),who,mb,idx+1,'!'+_lv(cur==null?null:cur)+(kind||'t')].join('|')]);
-  _logSchedule(1500);
-}
-function _logSchedule(ms){if(_logTimer)clearTimeout(_logTimer);_logTimer=setTimeout(_logFlush,ms);}
-function _logFlush(){
-  _logTimer=null;
-  if(!_logQ.length||_logBusy)return;
-  if(!bunSid){_logSchedule(2000);return;}   // 分附のIDが決まってから送る
-  var batch=_logQ.splice(0,200),body={},sid=bunSid;
-  batch.forEach(function(e){body[e[0]]=e[1];});
-  _logBusy=true;
-  dbFetch(LOG_DB+'/'+sid,{method:'PATCH',body:JSON.stringify(body)})
-    .then(function(r){
-      _logBusy=false;
-      if(r.status===401||r.status===403)return;   // 書き込みが許可されていない：諦める（入力は止めない）
-      if(!r.ok)throw new Error('http '+r.status);
-      if(_logQ.length)_logSchedule(300);
-    })
-    .catch(function(){_logBusy=false;_logQ=batch.concat(_logQ);_logSchedule(8000);});
-}
-/* --- 管理者用の閲覧画面（設定内） --- */
-var blgSids=null,blgSel='',blgRows=null,blgErr='',blgOnlyFix=false,blgOnlySelf=false;
-function _sidTime(sid){var t=parseInt(String(sid).slice(1,9),36);return isNaN(t)?0:t;}
-function _blgTs(t){var d=new Date(t);return (d.getMonth()+1)+'/'+d.getDate()+' '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);}
-function blgFetch(path,shallow){
-  return authToken().then(function(t){
-    return fetch(LOG_DB+path+'.json?'+(shallow?'shallow=true&':'')+(t?'auth='+encodeURIComponent(t):''));
-  }).then(function(r){
-    if(r.status===401||r.status===403)throw new Error('denied');
-    if(!r.ok)throw new Error('http');
-    return r.json();
-  });
-}
-function blgLoadList(){
-  blgErr='';blgSids=null;blgSel='';blgRows=null;paint();
-  blgFetch('',true).then(function(d){
-    blgSids=Object.keys(d||{}).sort(function(a,b){return _sidTime(b)-_sidTime(a);}).slice(0,20);paint();
-  }).catch(function(e){blgSids=[];blgErr=e&&e.message==='denied'?'データベースのルールで /bunLog の読み書きが許可されていません':'読み込めませんでした（オフライン？）';paint();});
-}
-function blgLoad(sid){
-  blgSel=sid;blgRows=null;blgErr='';paint();
-  blgFetch('/'+sid,false).then(function(d){
-    var ks=Object.keys(d||{}).sort();
-    blgRows=blgMerge(ks.map(function(k){var a=String(d[k]).split('|');return {t:+a[0],u:a[1]||'',m:a[2]||'',i:a[3]||'',c:a[4]||''};})).reverse();
-    paint();
-  }).catch(function(){blgRows=[];blgErr='読み込めませんでした';paint();});
-}
-/* 同じ人が同じマスを3秒以内に続けて変えた操作は1件にまとめる。
-   ✗は「空→○→✗」と2回タップで入れるので、まとめないと○→✗が書き換えに見えてしまう。
-   （入力側でも、入れてから3秒以内のマスは固定前なので打ち直せる。それと同じ基準） */
-function blgMerge(rows){
-  var out=[],last={};
-  rows.forEach(function(r){
-    if(r.c.charAt(0)==='!'){   // 止められた操作：3秒以内に同じマスを続けて押した分は回数にまとめる
-      var bk='!'+r.u+'\u0001'+r.m+'\u0001'+r.i,bp=last[bk];
-      if(bp&&r.t-bp.t<=BUN_LOCK_MS){bp.n++;bp.t=r.t;return;}
-      var bq={t:r.t,u:r.u,m:r.m,i:r.i,c:r.c,n:1};out.push(bq);last[bk]=bq;return;
-    }
-    var k=r.u+'\u0001'+r.m+'\u0001'+r.i,p=last[k];
-    if(p&&r.t-p.t<=BUN_LOCK_MS){
-      var a=p.c.split('>'),b=r.c.split('>');
-      p.c=a[0]+'>'+b[1];p.t=r.t;
-      if(a[0]===b[1]){out.splice(out.indexOf(p),1);delete last[k];}   // 結局元に戻った操作は消す
-      return;
-    }
-    var q={t:r.t,u:r.u,m:r.m,i:r.i,c:r.c};
-    out.push(q);last[k]=q;
-  });
-  return out;
-}
-function tBunLogCard(){
-  var o='<div class="card mb10"><p style="margin:0 0 6px;font-size:14px;font-weight:700">分附の変更履歴</p>'
-    +'<p style="margin:0 0 8px;font-size:11.5px;color:var(--sub)">入力中の分附で、どのマスを・いつ・誰が変えたかを確認できます。赤は本人が自分のマスを変えた操作、黄色は入力済みのマスを書き換えた操作です。同じ人が3秒以内に続けて押した分（✗を入れるときの2回タップなど）は1件にまとめています。「拒否」は本人が自分の列を押して止められた操作で、括弧内はそのときのマスの値です。</p>';
-  if(blgSids===null&&!blgErr)return o+'<button id="btn-blg-load" class="btn bh" style="margin-top:0;padding:8px 14px;font-size:12px">履歴を読み込む</button></div>';
-  if(blgErr)o+='<div style="font-size:12px;color:var(--bad);margin-bottom:8px">'+esc(blgErr)+'</div>';
-  if(blgSids&&!blgSids.length&&!blgErr)o+='<div class="emp" style="padding:8px 0">履歴はまだありません</div>';
-  if(blgSids&&blgSids.length){
-    o+='<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">'+blgSids.map(function(sid){
-      return '<button class="btn '+(sid===blgSel?'prim':'bh')+'" data-blg-sid="'+esc(sid)+'" style="margin-top:0;padding:6px 10px;font-size:12px">'+_blgTs(_sidTime(sid))+' 開始</button>';
-    }).join('')+'</div>';
-  }
-  if(blgSel){
-    if(blgRows===null)o+='<div class="emp" style="padding:8px 0">読み込み中…</div>';
-    else{
-      var _self=function(r){return r.u.replace(/\[.*\]$/,'')===r.m;};
-      var rows=blgRows.filter(function(r){return (!blgOnlyFix||r.c.charAt(0)!=='-')&&(!blgOnlySelf||_self(r));});
-      o+='<label style="display:flex;align-items:center;gap:6px;font-size:12px;margin:0 0 6px"><input type="checkbox" id="blg-onlyfix"'+(blgOnlyFix?' checked':'')+' style="width:auto;margin:0">書き換えのみ表示</label>'
-        +'<label style="display:flex;align-items:center;gap:6px;font-size:12px;margin:0 0 6px"><input type="checkbox" id="blg-onlyself"'+(blgOnlySelf?' checked':'')+' style="width:auto;margin:0">本人による入力のみ表示</label>';
-      var sym={o:'○',x:'✗','-':'空'};
-      o+='<div class="blg-wrap" style="max-height:360px;overflow:auto"><table class="blg-tbl"><thead><tr><th>時刻</th><th>入力者</th><th>部員</th><th>射</th><th>変更</th></tr></thead><tbody>'
-        +rows.map(function(r){
-          var d=new Date(r.t),tm=('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)+':'+('0'+d.getSeconds()).slice(-2);
-          var chg;
-          if(r.c.charAt(0)==='!'){   // 自分の列を押して止められた操作
-            chg='<b>拒否</b> '+(r.c.charAt(2)==='l'?'長押し':'タップ')+(r.n>1?'×'+r.n:'')+'（'+(sym[r.c.charAt(1)]||'空')+'）';
-            return '<tr class="blg-self"><td>'+tm+'</td><td>'+esc(r.u||'?')+'</td><td>'+esc(r.m)+'</td><td>'+esc(r.i)+'</td><td>'+chg+'</td></tr>';
-          }
-          var c=r.c.split('>'),fix=c[0]!=='-';
-          return '<tr'+(_self(r)?' class="blg-self"':fix?' class="blg-fix"':'')+'><td>'+tm+'</td><td>'+esc(r.u||'?')+'</td><td>'+esc(r.m)+'</td><td>'+esc(r.i)+'</td><td>'+(sym[c[0]]||'')+'→'+(sym[c[1]]||'')+'</td></tr>';
-        }).join('')+'</tbody></table></div>'
-        +(rows.length?'':'<div class="emp" style="padding:8px 0">該当なし</div>');
-    }
-  }
-  return o+'</div>';
-}
-
 function toggleBunShot(name,idx){
   var cur=(bunData[name]||[])[idx];if(cur===undefined)cur=null;
   setBunShot(name,idx,cur===null?true:cur===true?false:null);
 }
-/* マスの値を変える唯一の入口。変更は履歴に残す */
+/* マスの値を変える唯一の入口 */
 function setBunShot(name,idx,v){
   if(!bunData[name])bunData[name]=new Array(bunShotCount()).fill(null);
   var prev=bunData[name][idx];if(prev===undefined)prev=null;
   if(prev===v)return;
   bunData[name][idx]=v;
   _bunEditAt[name+'\u0001'+idx]=Date.now();
-  bunLogPush(name,idx,prev,v);
   var s=v;
   // セルだけ更新（スクロール位置を保つ）
   var cell=document.querySelector('[data-bun-name="'+cssAttr(name)+'"][data-bun-idx="'+idx+'"]');
@@ -3740,7 +3508,6 @@ function tPenalty(){
 /* ===== §14 仕事（求人） ===== */
 function jstNow(){return new Date(Date.now()+9*3600*1000);}
 function todayStr(){return jstNow().toISOString().slice(0,10);}
-function curMonth(){return jstNow().toISOString().slice(0,7);}
 /* 暦ベースの「その月の第何週」。1日を含む週を第1週とし、月曜始まりで数える */
 /* 週は「月曜〜日曜の7日間」。キーはその週の月曜日の日付（YYYY-MM-DD）。月はまたいでも1週として扱う */
 function _ymdUTC(t){var d=new Date(t);return d.getUTCFullYear()+'-'+('0'+(d.getUTCMonth()+1)).slice(-2)+'-'+('0'+d.getUTCDate()).slice(-2);}
@@ -4025,9 +3792,6 @@ function lgAgg(recs){
     });
   });
   return {pos:pos,blk:blk,tate:tate,per:per};
-}
-function lgBar(hi,sh){ // 互換用（旧呼び出し）
-  return lgPerRow('',hi,sh);
 }
 /* 1行：名前｜棒｜的中率｜的中/射数（＋任意の補足）。列幅固定で折り返さない */
 function lgPerRow(name,hi,sh,note){
@@ -4507,19 +4271,6 @@ function doPrint(type){
   var logoEl=document.querySelector('img.mk');
   var logoSrc=logoEl?logoEl.src:'';
 
-  function makeRows(items){
-    return items.map(function(m){
-      var mt=Meta[m.name]||{};
-      var meta=[mt.year?mt.year+'年':'',mt.gender||''].filter(Boolean).join('・');
-      var medal=m.rank===1?'🥇':m.rank===2?'🥈':m.rank===3?'🥉':'';
-      return '<tr>'
-        +'<td>'+(medal||m.rank)+'</td>'
-        +'<td class="tl">'+esc(m.name)+(meta?' <small>'+meta+'</small>':'')+'</td>'
-        +'<td style="color:'+printRc(m.rate)+'">'+(m.rate*100).toFixed(1)+'%</td>'
-        +'<td>'+m.hi+'/'+m.sh+'</td>'
-        +'</tr>';
-    }).join('');
-  }
 
   var thead='<thead><tr>'
     +'<th style="width:28px">順</th>'
@@ -4600,12 +4351,6 @@ function doCSV(type){
 }
 
 /* ===== §16 個人ページ・詳細分析 ===== */
-function indivAllStats(name){
-  var entries=S.filter(function(e){return e.mb===name;});
-  var sh=entries.reduce(function(a,e){return a+e.sh;},0);
-  var hi=entries.reduce(function(a,e){return a+e.hi;},0);
-  return{sh:sh,hi:hi,rate:sh?hi/sh:0};
-}
 function indivMonthly(name){
   var months=getMo();var result=[];
   months.forEach(function(m){
@@ -4865,33 +4610,6 @@ function personOfficialView(name){
     +(om==='week'?wkContent:moContent);
 }
 /* ---- 射癖分析（内訳seqを持つ記録のみ集計） ---- */
-function indivShotAnalysis(name){
-  var recs=S.filter(function(e){return e.mb===name&&typeof e.seq==='string'&&e.seq.length>=4;});
-  var posHit=[0,0,0,0],posSh=[0,0,0,0];   // 立ち内の位置（1〜4本目）
-  var tachiHit=[0,0,0,0,0],tachiSh=[0,0,0,0,0]; // 立ち順（1〜5立ち目）
-  var kaichuCount=0,tachiTotal=0,maxStreak=0;
-  recs.forEach(function(e){
-    var seq=e.seq;
-    // 連中（記録全体を通した最長連続中）
-    var cur=0;
-    for(var c=0;c<seq.length;c++){if(seq[c]==='1'){cur++;if(cur>maxStreak)maxStreak=cur;}else cur=0;}
-    // 4射ずつの立ち単位で集計
-    for(var t=0;t*4<seq.length;t++){
-      var set=seq.substr(t*4,4);
-      if(set.length<4)break; // 端数の立ちは位置別集計から除外
-      tachiTotal++;
-      var setHit=0;
-      for(var p=0;p<4;p++){
-        posSh[p]++;
-        if(set[p]==='1'){posHit[p]++;setHit++;}
-      }
-      if(t<5){tachiSh[t]+=4;tachiHit[t]+=setHit;}
-      if(setHit===4)kaichuCount++;
-    }
-  });
-  return{recCount:recs.length,tachiTotal:tachiTotal,kaichuCount:kaichuCount,maxStreak:maxStreak,
-    posHit:posHit,posSh:posSh,tachiHit:tachiHit,tachiSh:tachiSh};
-}
 function analysisBar(hit,sh){
   var r=sh?hit/sh:0;
   var pct=(r*100).toFixed(1);
@@ -4920,7 +4638,7 @@ function anaRange(p){
   return{from:'',to:'9999-12-31'};
 }
 function anaIn(key,from,to){return (!from||key>=from)&&key<=to;}
-/* 練習記録の日付キー（日付なしは週から概算） */
+/* 練習記録の日付キー */
 function anaKey(e){return achSortKey(e);}
 function anaRecs(name,from,to){
   return S.filter(function(e){return (!name||e.mb===name)&&e.sh>0&&anaIn(anaKey(e),from,to);})
@@ -5556,17 +5274,17 @@ function doSelfLogin(){
   var lk=pinLockedSec();if(lk){fl('しばらく待ってから再入力してください（あと'+lk+'秒）',true);return;}
   if(!Pins[name]){
     Pins[name]=makePinHash(pin);svPins();
-    myMb=name;svMe();jobSelfMb=name;selfLoginName='';selfSub='official';selfPracSub='input';selfForm={date:todayStr(),sh:'20',hi:''};selfMarks=[];
+    myMb=name;svMe();jobSelfMb=name;selfLoginName='';selfPracSub='input';selfForm={date:todayStr(),sh:'20',hi:''};selfMarks=[];
     fl(name+' さんのマイページを作成しました');paint();
   }else if(pinMatch(Pins[name],pin,pinHash)){
     pinOk();if(!isPinHash(Pins[name])){Pins[name]=makePinHash(pin);svPins();}
-    myMb=name;svMe();jobSelfMb=name;selfLoginName='';selfSub='official';selfPracSub='input';selfForm={date:todayStr(),sh:'20',hi:''};selfMarks=[];
+    myMb=name;svMe();jobSelfMb=name;selfLoginName='';selfPracSub='input';selfForm={date:todayStr(),sh:'20',hi:''};selfMarks=[];
     fl('ログインしました');paint();
   }else{
     pinFailed();fl('PINが違います',true);
   }
 }
-function selfLogout(){myMb='';svMe();jobSelfMb='';selfSub='official';selfPracSub='input';selfMarks=[];paint();}
+function selfLogout(){myMb='';svMe();jobSelfMb='';selfPracSub='input';selfMarks=[];paint();}
 function selfResetPin(name){if(!adminMode)return;delete Pins[name];svPins();fl(name+' のPINをリセットしました');paint();}
 /* --- 登録 / 削除 --- */
 function doSaveSelf(){
@@ -5632,7 +5350,6 @@ function tSelf(page){
     return out;
   }
   if(!selfForm.date)selfForm.date=todayStr();
-  migrateSelfSub();
   /* 自主練はマイページ右上のボタンから開く奥の画面。ログアウトはマイページの一番下 */
   var head=isPrac
     ?'<div class="row" style="align-items:center;margin-bottom:12px">'
@@ -5660,14 +5377,6 @@ function tSelf(page){
   var foot=isPrac?'':'<div style="text-align:center;margin:28px 0 8px">'
     +'<button class="btn bh" style="padding:7px 14px;font-size:12px" id="btn-self-logout">ログアウト</button></div>';
   return head+(isPrac?'':personProfileCard(myMb))+body+foot;
-}
-/* 旧サブタブ値（記録/公式/自主練/ランキングの一段構成）からの移行 */
-function migrateSelfSub(){
-  if(selfSub==='input'){selfSub='self';selfPracSub='input';}
-  else if(selfSub==='rank'){selfSub='self';selfPracSub='rank';}
-  else if(selfSub==='record'){selfSub='official';}
-  if(selfSub!=='self'&&selfSub!=='official')selfSub='official';
-  if(['input','stat','rank'].indexOf(selfPracSub)<0)selfPracSub='input';
 }
 function selfTotalHTML(sh,hi){
   var r=sh?hi/sh:0;
@@ -5896,7 +5605,7 @@ function tSettingsPanel(){
       +'<button id="btn-lock-now" class="btn bh" style="margin-top:0;padding:8px 16px">ロックする</button>'
     +'</div></div>';
   if(!adminMode)return head+'<div class="emp" style="padding:28px 0">設定項目は管理者のみ利用できます。</div>';
-  return head+tBunLogCard()+tSt();
+  return head+tSt();
 }
 
 /* ===== §21 設定・部員管理 ===== */
