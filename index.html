@@ -284,7 +284,7 @@ button.tap-bounce{animation:tapBounce .12s ease-out}
    ・マイナー : 機能の追加・仕様の変更（パッチは0に戻す）
    ・パッチ : バグ修正・見た目の微調整・名称変更など
    履歴: v1 build1(6/8 端末内版) / v2 build53(6/13 Firebase共有) / v3 build117(7/2 日付ベース記録) / v4 build170(7/15 4タブ構成) / v5 build260(10/6 記録単位の同期・PINハッシュ化) */
-var APP_VERSION='5.6.0',APP_BUILD=283;
+var APP_VERSION='5.7.0',APP_BUILD=287;
 (function(){var el=document.getElementById('app-ver');if(el)el.textContent='v'+APP_VERSION+' (build '+APP_BUILD+')';})();
 var BADGE_SVGS={
   "firstHit":'<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAMAAAD04JH5AAAA/1BMVEUAAAABAAABAAACAQACAQABAAABAAABAAAXFwAqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABScqvmAAAAQHRSTlMA/NAtb1KujwsGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA39+/1gAAA3JJREFUeNrtWu2S2zAIjPgQ7fu/cGPHlgHJurRG9kxH/LuLo0VmWSHI6zVt2rRp06ZNmzZt2rRpIw2fxk/4MH6ih/FTfhg/wcP46TkSbPiPkWDHf4oEBf/tAeGj+CsT73bC4d9Oxv8fnykD7NEVH97B+Ei5Wh6E78LnnNoGgucOhOEzpI7lDQdG4Tt4WM38S9bnZBC+aG3jsiqyHF7AwgUago8FJXP94eGDeBIE4ZddCfbjs5x9A/DF8ezUBXIkjMUH/umxsfg/H+y44QMiLbSIjb+tbJCZ3sYeA44yMCz9a3ydebbegAFl6AdGhZ/gTAMLPkkcfnb7b8vxx4WCbxyOIIA4f2pji59SaACg1sOlDnjTUJT+7PjofA7IQLR8tHq4nNBk+CdxGoCGAGgOPeUCO/5D2H1AdAA2fGhuzeQfh70Ck4HQ0UOX/xDEAtIvgL7A34Xx8wqCNIB0APr4VD4HJ15XImAEwJTH+1Gg8x/V67ocA1Z7RifImx5r/lePQ0gOUCMfiiCZ/DPch4g8AL8gO0Gy+mMoIxG9CbVp1AzANr6JAQeQANV6hlS58f49aTFADPUmREVAJWRLf7B6fZdkiNSm0fPR6492E65LkXZALwf1+c/9b1xxgE8c2D7f9IducQCcA3zoHynW0D0hwLVR4kBpsAOoCCkm9bBWnwAHdBpmFQ7Wx8JHE37VTwWkodYSo6xHXci2aFfvCaMcALVr8LXpXiGffeFqWajDaKo8afdARMWMIg6j7GMtr5YH3Kogc0RJpE8gV+geF7SjZ2FKhpCi0BDJ1/qclyaZuqGYOwTH3AygSj764WFolLNXa7JsqgDu36LNiX39ZmLWwdTx4Hc2VbtE3c2yXog6Q6hcC0JIi4Bb6V/36sgJQo4bGBpmlfS33cqSkrZojumROO4XAYLtUqQ7xdj2OqRFxFXLdsUwf+Dru3T5tybZ0Rw/aRLRaVcpJgjw6rbJFC+r54PaRHpFN7cB0zEaMCSDRmeGZT0KqpkZDRlYQ/qWVpKCCWAv4/Tlc9H4x8qAX3TVB+AfUeiMTEoLe9APFqQzs1r6RVAVaNHG7UHtyw5z88AhudHAJf9oGZq807Gph2NeQndyO4h9zoXcgb/nJwoo7YnJnT/WeZMOTn89cJsTuE7tGnO7adOmTZs2bdq0adOmTft7+wMREBE7g6UbsAAAAABJRU5ErkJggg==" alt="" style="width:100%;height:100%;display:block;object-fit:contain">',
@@ -955,6 +955,7 @@ function _normDraft(d){ // 受信下書きを正規化
     d.tateList=Object.keys(d.tateList).sort(function(a,b){return a-b;}).map(function(k){return d.tateList[k];});
   if(d.order!=null&&!Array.isArray(d.order))
     d.order=Object.keys(d.order).sort(function(a,b){return a-b;}).map(function(k){return d.order[k];});
+  if(d.lateJoins)d.lateJoins=_normList(d.lateJoins);
   if(d.data){
     Object.keys(d.data).forEach(function(nm){d.data[nm]=_normCol(d.data[nm]);});
   }
@@ -1027,8 +1028,13 @@ function _refreshDraftAfterPull(){
 /* 下書きが「実体として存在する」か。列だけのpatchで作られた空オブジェクトで
    新規作成が塞がれてしまわないよう、日付を持つものだけを進行中とみなす。 */
 function hasBunDraft(){var d=bunDraftRemote;return !!(d&&(d.d||d.date));}
+var _draftRenderedOrder=null;
 function _draftRepaint(){
-  if(tab==='input'&&bunStep==='input'){if(!_syncBunCellsToDom())paint();}
+  if(tab==='input'&&bunStep==='input'){
+    var structural=bunDraftRemote&&bunDraftRemote.order&&JSON.stringify(bunDraftRemote.order)!==JSON.stringify(_draftRenderedOrder);
+    if(structural){_draftRenderedOrder=_normDraft(bunDraftRemote).order.slice();if(!_draftMeta)bunOrder=_draftRenderedOrder.slice();_repaintKeepScroll();}
+    else if(!_syncBunCellsToDom())paint();
+  }
   else if(tab==='input'&&bunStep==='mo-sess')paint();
 }
 /* put=そのパスの中身が丸ごと置き換わった通知 */
@@ -1679,7 +1685,7 @@ function setMeta(name,key,val){
 function attKey(){return wkOf(bunDate);}
 /* ===== §10 画面の描画（タブ切替・paint） ===== */
 function sw(t){
-  if(!adminMode&&!shonaiMode&&t!=='input'&&t!=='table'&&t!=='penalty'&&t!=='self'&&t!=='prac')return;
+  if(!adminMode&&!shonaiMode&&t!=='input'&&t!=='table'&&t!=='penalty'&&t!=='self'&&t!=='prac'&&t!=='other')return;
   if(t==='table'&&!adminMode)return; // 成績表タブは管理者のみ
   tab=t;pDel=null;pReset=false;editId=null;pinPendingType=null;pinPendingVal='';wipeStep=0;rankExpandName='';bunSaveStage=0;bunDraftDiscard=0;if(t!=='table'){mergeMode=false;mergeSel=[];mergeConfirm=false;histOpen=false;}if(t!=='input'){bunStep='mo-sess';}if(t!=='table'){tableView='rank';tbScope='prac';lgOpen=0;lgDel=0;}if(t!=='penalty'){penSubTab='penalty';jobView='list';}paint();
 }
@@ -1688,7 +1694,7 @@ function sw(t){
 function paintTabs(){
   var T=[['input','分附']];
   if(adminMode)T.push(['table','成績表']); // 成績表タブは管理者のみ表示
-  T.push(['penalty','罰則'],['self','マイページ']);
+  T.push(['penalty','罰則'],['self','マイページ'],['other','その他']);
   var el=document.getElementById('tabs');
   el.innerHTML=T.map(function(kl){
     var on=tab===kl[0]||(tab==='prac'&&kl[0]==='self');   // 自主練はマイページの中の画面
@@ -1803,7 +1809,7 @@ function paint(){
   var _con=document.getElementById('con');
   var _hsc=_saveHScrolls(_con),_bunHad=!!_con.querySelector('.bun-sheet-wrap'),_bunPy=window.pageYOffset||document.documentElement.scrollTop||0;
   _con.innerHTML=banner
-    +(tab==='input'?tBun():tab==='table'?tTb():tab==='penalty'?tPenalty():tab==='prac'?tSelf('prac'):tSelf());
+    +(tab==='input'?tBun():tab==='table'?tTb():tab==='penalty'?tPenalty():tab==='prac'?tSelf('prac'):tab==='other'?tOther():tSelf());
   conFadeIfScreenChanged(_con);
   renderOverlay();
   bindDynamic();
@@ -2203,7 +2209,7 @@ var CHANGE_ATTR=[
 ];
 /* ボタンは離した後の弾みを少し見せてから処理する（約0.05秒）。
    分附表内・入力欄・ダウンロード/印刷/読込/生体認証（ユーザー操作直後でないと端末に止められる）は即時 */
-var TAP_DELAY=50,_tapBusy=false,TAP_NODELAY=/csv|print|export|import|bio/;
+var TAP_DELAY=50,_tapBusy=false,TAP_NODELAY=/csv|print|export|import|bio|feedback-google/;
 function tapDispatch(ev){
   var btn=ev.target&&ev.target.closest?ev.target.closest('button'):null;
   var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -2388,12 +2394,13 @@ function bunSortByScores(base,scores){
    最初の並び順は全部員を的中順に並べて作るため、欠席者も的中順の位置に入っている。
    そのままだと欠席→出席に変えた人が的中順の位置に出てしまうので、
    今いない人（欠席・退部、かつ入力済みのマスもない人）は並びから外しておく。 */
+function bunLateMembers(){return bunDraftRemote&&bunSid&&bunDraftRemote.sid===bunSid?_normList(bunDraftRemote.lateJoins):[];}
 function bunAppendNewMembers(key){
   if(_loading)return;   // 部員・出欠が最新になってから判定する
   var att=A.hasOwnProperty(key)?A[key]:null;
   function shown(n){
     if((bunData[n]||[]).some(function(v){return v!=null;}))return true;   // 入力済みの列は残す
-    return M.indexOf(n)>=0&&(!att||att.indexOf(n)>=0);
+    return M.indexOf(n)>=0&&(!att||att.indexOf(n)>=0||bunLateMembers().indexOf(n)>=0);
   }
   var kept=bunOrder.filter(shown);
   var add=membersSorted().filter(function(n){return kept.indexOf(n)<0&&shown(n);});
@@ -2403,13 +2410,17 @@ function bunAppendNewMembers(key){
 function getBunMembers(){
   if(isLeagueMode(bunMode))return lgTableSlots(bunMode).map(function(sl){return sl.key;});
   var key=attKey();
-  if(bunOrder)bunAppendNewMembers(key);
+  if(bunOrder){
+    var late=bunLateMembers().filter(function(n){return M.indexOf(n)>=0&&bunOrder.indexOf(n)<0;});
+    if(late.length)bunOrder=late.reverse().concat(bunOrder);
+    bunAppendNewMembers(key);
+  }
   var sorted=bunOrder?bunOrder:membersSorted();
   // 出席者に加えて「既に○×が入っている部員」も必ず含める。
   // 出席リストが他端末の同期で入れ替わった時に、入力済みの列が
   // ensureBunData()で削除されてしまうのを防ぐ。
   if(A.hasOwnProperty(key))return sorted.filter(function(n){
-    return A[key].indexOf(n)>=0||(bunData[n]||[]).some(function(v){return v!=null;});
+    return A[key].indexOf(n)>=0||bunLateMembers().indexOf(n)>=0||(bunData[n]||[]).some(function(v){return v!=null;});
   });
   return sorted;
 }
@@ -5889,5 +5900,7 @@ load();
 /* iOS Safari で :active を効かせるための空リスナー */
 document.addEventListener('touchstart',function(){},{passive:true});
 </script>
+<script src="feedback.js"></script>
+<script src="late-join.js"></script>
 </body>
 </html>

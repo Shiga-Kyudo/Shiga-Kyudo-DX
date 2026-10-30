@@ -1,0 +1,10 @@
+{
+  "name": "shiga-kyudo-dx",
+  "private": true,
+  "scripts": {
+    "start": "node tools/preview.cjs",
+    "check": "node tools/check.cjs",
+    "test": "node --test tools/feedback.test.cjs tools/late-join.test.cjs"
+  },
+  "engines": { "node": ">=22" }
+}

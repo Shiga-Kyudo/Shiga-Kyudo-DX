@@ -1,0 +1,54 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "kyudo": {
+      ".read": "auth != null",
+      ".write": "auth != null && newData.exists()"
+    },
+    "clubFeedback": {
+      ".read": "auth != null && auth.token.email_verified === true && auth.token.firebase.sign_in_provider === 'google.com' && auth.token.email === 'shigakyudo@gmail.com'",
+      "$id": {
+        ".write": "(auth != null && auth.token.email_verified === true && auth.token.firebase.sign_in_provider === 'google.com' && auth.token.email === 'shigakyudo@gmail.com') || (auth != null && newData.exists() && ((!data.exists() && !newData.child('reply').exists() && newData.child('status').val() === 'pending') || (data.exists() && data.child('body').val() === newData.child('body').val() && data.child('createdAt').val() === newData.child('createdAt').val() && data.child('status').val() === newData.child('status').val() && data.child('reply').val() === newData.child('reply').val())))",
+        ".validate": "newData.hasChildren(['body','createdAt','status'])",
+        "body": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 2000"
+        },
+        "createdAt": {
+          ".validate": "newData.isNumber() && newData.val() > 0 && newData.val() <= now + 60000"
+        },
+        "status": {
+          ".validate": "newData.val() === 'pending' || newData.val() === 'published' || newData.val() === 'held'"
+        },
+        "$other": {
+          ".validate": false
+        },
+        "reply": {
+          ".validate": "newData.isString() && newData.val().length <= 2000"
+        }
+      }
+    },
+    "clubBoard": {
+      ".read": "auth != null",
+      "$id": {
+        ".write": "auth != null && auth.token.email_verified === true && auth.token.firebase.sign_in_provider === 'google.com' && auth.token.email === 'shigakyudo@gmail.com' && newData.exists()",
+        ".validate": "newData.hasChildren(['body','createdAt','publishedAt']) && root.child('clubFeedback').child($id).exists() && newData.child('body').val() === root.child('clubFeedback').child($id).child('body').val() && newData.child('createdAt').val() === root.child('clubFeedback').child($id).child('createdAt').val()",
+        "body": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 2000"
+        },
+        "createdAt": {
+          ".validate": "newData.isNumber()"
+        },
+        "publishedAt": {
+          ".validate": "newData.isNumber() && newData.val() <= now"
+        },
+        "$other": {
+          ".validate": false
+        },
+        "reply": {
+          ".validate": "newData.isString() && newData.val().length <= 2000"
+        }
+      }
+    }
+  }
+}
