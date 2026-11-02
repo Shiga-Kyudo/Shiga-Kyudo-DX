@@ -24,7 +24,8 @@
       Object.keys(value).forEach(function(p){
         var keys=p.split('/'),entry=data.clubFeedback[keys[1]];
         if(!entry)throw new Error('DENIED');
-        if(keys[0]==='clubFeedback'&&keys[2]==='status'&&keys.length===3&&entry.status==='pending'&&['published','held'].includes(value[p]))next.clubFeedback[keys[1]].status=value[p];
+        if(keys[0]==='clubFeedback'&&keys[2]==='status'&&keys.length===3&&((entry.status==='pending'&&['published','held'].includes(value[p]))||(entry.status==='published'&&value[p]==='held')))next.clubFeedback[keys[1]].status=value[p];
+        else if(keys[0]==='clubBoard'&&keys.length===2&&value[p]===null){delete next.clubBoard[keys[1]];}
         else if(keys.length===3&&keys[2]==='reply'&&['clubFeedback','clubBoard'].includes(keys[0])&&(value[p]===null||(typeof value[p]==='string'&&value[p].length<=2000))){
           if(!next[keys[0]][keys[1]])throw new Error('DENIED');
           if(value[p]===null)delete next[keys[0]][keys[1]].reply;else next[keys[0]][keys[1]].reply=value[p];

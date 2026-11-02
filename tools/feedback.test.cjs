@@ -76,3 +76,22 @@ test('長すぎる返信と承認キャンセルは書き込まない',async()=>
   const {c,calls}=setup();c.adminMode=true;c.feedbackAdmin={getIdToken:async()=>'admin'};c.feedbackItems=[{id:'a',body:'意見',createdAt:1,status:'pending'}];c.feedbackReplyDrafts.a='あ'.repeat(2001);
   await c.feedbackSaveReply('a');await c.feedbackModerate('a',true);assert.equal(calls.length,0);c.feedbackReplyDrafts.a='回答';c.window.confirm=()=>false;await c.feedbackModerate('a',true);assert.equal(calls.length,0);
 });
+test('管理者認証のある人だけ掲示板削除ボタンを使える',async()=>{
+ const {c,calls}=setup();const item={id:'a',body:'意見',createdAt:1,reply:'返信',status:'published'};c.feedbackBoard=[item];c.feedbackItems=[item];c.feedbackView='board';
+ assert(!c.tOther().includes('掲示板から削除'));c.adminMode=true;assert(!c.tOther().includes('掲示板から削除'));await c.feedbackDeletePublication('a');assert.equal(calls.length,0);
+ c.feedbackAdmin={getIdToken:async()=>'admin'};assert(c.tOther().includes('掲示板から削除'));c.feedbackView='review';assert(c.tOther().includes('掲示板から削除'));
+});
+test('掲示板の意見と返信だけを一括削除し、原文と返信を意見箱に残す',async()=>{
+ const {c,calls}=setup();c.adminMode=true;c.feedbackAdmin={getIdToken:async()=>'admin'};c.feedbackBoard=[{id:'a',body:'意見',reply:'返信',createdAt:1}];c.feedbackItems=[{id:'a',body:'意見',reply:'返信',createdAt:1,status:'published'}];
+ await c.feedbackDeletePublication('a');assert.deepEqual(JSON.parse(calls[0].body),{'clubBoard/a':null,'clubFeedback/a/status':'held'});assert.match(calls[0].url,/auth=admin$/);assert.equal(c.feedbackBoard.length,0);assert.equal(c.feedbackItems[0].body,'意見');assert.equal(c.feedbackItems[0].reply,'返信');assert.equal(c.feedbackItems[0].status,'held');
+});
+test('掲示板削除のキャンセル・通信失敗時は掲載データを消さない',async()=>{
+ const {c,calls}=setup();c.adminMode=true;c.feedbackAdmin={getIdToken:async()=>'admin'};c.feedbackBoard=[{id:'a',body:'意見',createdAt:1}];c.window.confirm=()=>false;await c.feedbackDeletePublication('a');assert.equal(calls.length,0);assert.equal(c.feedbackBoard.length,1);
+ c.window.confirm=()=>true;c.fetch=async()=>{throw Error('offline');};await c.feedbackDeletePublication('a');assert.equal(c.feedbackBoard.length,1);assert(c.feedbackError);
+});
+test('物出しっぱなしの新規罰則は3点、記録済み5点は保持',()=>{
+ const html=fs.readFileSync(path.join(__dirname,'..','index.html'),'utf8');const start=html.indexOf('var PTYPES='),end=html.indexOf('function delPenalty(',start);assert(start>=0);
+ const types=html.slice(start,html.indexOf('];',start)+2);const save=html.slice(html.indexOf('function doSavePenalty(){',start),end);
+ const c={P:[{id:1,ptype:5,pts:5}],penForm:{mb:'本人',date:'2026-11-02',kind:'add',ptype:5,heavy:false},Date,svP(){},fl(){},paint(){}};vm.createContext(c);vm.runInContext(types+'\n'+save,c);c.doSavePenalty();assert.equal(c.P[0].pts,5);assert.equal(c.P[1].pts,3);
+ c.penForm.mb='本人';c.penForm.heavy=true;c.doSavePenalty();assert.equal(c.P[2].pts,8);
+});
